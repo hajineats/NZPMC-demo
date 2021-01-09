@@ -3,6 +3,7 @@ import firebase from "./Firebase";
 import Paper from "@material-ui/core/Paper";
 import MathJax from "react-mathjax-preview";
 import Container from "@material-ui/core/Container";
+import logo from "../assets/nzpmc-logo.png";
 import "./Login.css";
 var firebaseui = require("firebaseui");
 require("firebase/auth");
@@ -88,6 +89,9 @@ export default function Login() {
           <Paper
             style={{ textAlign: "center", margin: "10px", padding: "10px" }}
           >
+            <img width="64px" height="64px" src={logo} />
+            <br />
+
             {loggedIn
               ? "Hello! You are logged in as " + name + "!"
               : "You are not logged in, sorry!"}
@@ -98,10 +102,11 @@ export default function Login() {
             id="firebaseui-auth-container"
           />
         </Container>
+        {/* <button onClick={writeUserData}>write!</button>
+        <button onClick={readUserData}>read!</button>
+        <MathJax math={math} /> */}
       </Container>
-      <button onClick={writeUserData}>write!</button>
-      <button onClick={readUserData}>read!</button>
-      <MathJax math={math} />
+      <div></div>
     </>
   );
 }
