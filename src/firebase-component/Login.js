@@ -5,6 +5,7 @@ import MathJax from "react-mathjax-preview";
 import Container from "@material-ui/core/Container";
 import logo from "../assets/nzpmc-logo.png";
 import "./Login.css";
+import "firebaseui/dist/firebaseui.css";
 var firebaseui = require("firebaseui");
 require("firebase/auth");
 require("firebase/database");
@@ -32,8 +33,7 @@ var uiConfig = {
 };
 
 //////////////////////////////////////////////////////////////////
-export default function Login() {
-  const [loggedIn, setLoggedIn] = useState(false);
+export default function Login(props) {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [math, setMath] = useState(String.raw``);
@@ -75,7 +75,7 @@ export default function Login() {
     firebase.auth().onAuthStateChanged((user) => {
       setEmail(user ? user.email : "");
       setName(user ? user.displayName : "");
-      setLoggedIn(user ? true : false);
+      props.setLoggedIn(user ? true : false);
     });
   }, []);
 
@@ -92,7 +92,7 @@ export default function Login() {
             <img width="64px" height="64px" src={logo} />
             <br />
 
-            {loggedIn
+            {props.loggedIn
               ? "Hello! You are logged in as " + name + "!"
               : "You are not logged in, sorry!"}
           </Paper>

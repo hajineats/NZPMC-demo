@@ -1,16 +1,22 @@
 import React from "react";
 import UserDetailsAndInstructions from "./UserDetailsAndInstructions";
 import Button from "@material-ui/core/Button";
+import firebase from "../../../firebase-component/Firebase";
 
 export default function UserInfo() {
+  function signOut() {
+    firebase.auth().signOut();
+  }
+
   return (
     <>
       <UserDetailsAndInstructions />
       <Button
+        onClick={signOut}
         style={{
           color: "white",
           backgroundColor: "yellowgreen",
-          margin: "0 10px 0 0"
+          margin: "0 10px 0 0",
         }}
       >
         Sign Out
@@ -19,7 +25,7 @@ export default function UserInfo() {
         style={{
           color: "white",
           backgroundColor: "crimson",
-          margin: "0 0 0 10px"
+          margin: "0 0 0 10px",
         }}
       >
         Submit the Whole Exam

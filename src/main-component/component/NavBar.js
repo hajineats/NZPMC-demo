@@ -5,17 +5,18 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import PersonPinIcon from "@material-ui/icons/PersonPin";
 import ListIcon from "@material-ui/icons/List";
+import logo from "../../assets/nzpmc-logo.png";
 
 const useStyles = makeStyles({
   root: {
     flexGrow: 1,
-    maxWidth: 500
-  }
+    maxWidth: 500,
+  },
 });
 
 export default function NavBar(props) {
   const classes = useStyles();
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = React.useState(2);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -38,7 +39,7 @@ export default function NavBar(props) {
             <img
               alt="NZPMC logo"
               style={{ margin: "10px", width: 32, height: 32 }}
-              src="https://lh6.googleusercontent.com/eJ9ocBxf5ogz5HbuJrgehM2SMP7AUtJCl7ndGc-btzE_lvKY_RhP3HPr4zY_l-_8IMPI9g=w16383"
+              src={logo}
             />
           }
           aria-label="Current Question"
