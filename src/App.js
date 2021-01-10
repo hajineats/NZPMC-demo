@@ -4,34 +4,43 @@ import { useState, useEffect } from "react";
 import NZPMC from "./main-component/NZPMC";
 import "./App.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { requirePropFactory } from "@material-ui/core";
 require("firebase/auth");
 require("firebase/database");
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [initialized, setInitialized] = useState(false);
-  useEffect(() => {
-    firebase.auth().onAuthStateChanged((user) => {
-      setLoggedIn(user ? true : false);
+  const updateStates = (user) => {
+    setLoggedIn(user ? true : false);
+    try {
+      firebase
+        .database()
+        .ref("/users/" + user + "/initialized")
+        .once("value")
+        .then((snapshot) => {
+          console.log("fortunate!");
+          setInitialized(true);
+        })
+        .catch(() => {
+          console.log("but unfortunate");
+          setInitialized(false);
+        });
+    } catch (e) {
+      console.log("but unfortunate2");
+      setInitialized(false);
+    }
+  };
 
-      try {
-        const user = firebase.auth().currentUser.uid;
-        firebase
-          .database()
-          .ref("/users/" + user + "/initialized")
-          .once("value")
-          .then((snapshot) => {
-            setInitialized(true);
-          })
-          .catch(() => {
-            setInitialized(false);
-          });
-      } catch (e) {
-        setInitialized(false);
-        console.log(e);
+  useEffect(() => {
+    updateStates(firebase.auth().currentUser);
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        console.log("login success!");
+      } else {
+        console.log("login failed!");
       }
+      updateStates(user);
     });
-  });
+  }, []);
 
   return (
     <>
