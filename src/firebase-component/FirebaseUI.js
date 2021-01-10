@@ -9,6 +9,15 @@ require("firebase/database");
 var uiConfig = {
   callbacks: {
     signInSuccessWithAuthResult: function (authResult, redirectUrl) {
+      console.log("success!");
+      firebase
+        .database()
+        .ref("/users/" + firebase.auth().currentUser.uid + "/initialized")
+        .once("value")
+        .then((s) => {
+          console.log(s);
+        });
+
       return true;
     },
     uiShown: function () {

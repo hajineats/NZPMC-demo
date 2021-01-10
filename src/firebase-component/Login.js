@@ -11,7 +11,7 @@ require("firebase/auth");
 require("firebase/database");
 
 export default function Login(props) {
-  const { initialized } = props;
+  const { initialized, setInitialized } = props;
   const { loggedIn } = props;
   const [name, setName] = useState("");
 
@@ -34,7 +34,7 @@ export default function Login(props) {
           </Paper>
           <Paper style={{ paddingTop: "20px", paddingBottom: "10px" }}>
             {!loggedIn ? (
-              <FirebaseUI />
+              <FirebaseUI setInitialized={setInitialized} />
             ) : (
               <UserInit initialized={initialized} />
             )}

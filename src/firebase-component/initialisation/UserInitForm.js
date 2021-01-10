@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function UserInitForm(props) {
-  const { initialized } = props;
+  const { initialized, setInitialized } = props;
   const classes = useStyles();
   const [yearLevel, setYearLevel] = React.useState(9);
   const [name, setName] = useState("");
