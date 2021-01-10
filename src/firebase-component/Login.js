@@ -76,6 +76,15 @@ export default function Login(props) {
       setEmail(user ? user.email : "");
       setName(user ? user.displayName : "");
       props.setLoggedIn(user ? true : false);
+      if (user) {
+        firebase
+          .database()
+          .ref("users/" + firebase.auth().currentUser.uid + "/initialized")
+          .once("value")
+          .then((snapshot) => {
+            props.setUserInitialised(snapshot.val());
+          });
+      }
     });
   }, []);
 
