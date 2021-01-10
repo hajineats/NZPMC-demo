@@ -26,25 +26,12 @@ var uiConfig = {
 };
 
 function FirebaseUI(props) {
-  const { name, setName } = props;
   const [math, setMath] = useState(String.raw``);
   useEffect(() => {
     var ui =
       firebaseui.auth.AuthUI.getInstance() ||
       new firebaseui.auth.AuthUI(firebase.auth());
     ui.start("#firebaseui-auth-container", uiConfig);
-
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        firebase
-          .database()
-          .ref("users/" + firebase.auth().currentUser.uid + "/initialized")
-          .once("value")
-          .then((snapshot) => {
-            // props.setUserInitialised(snapshot.val());
-          });
-      }
-    });
   }, []);
   return <div id="firebaseui-auth-container" />;
 }

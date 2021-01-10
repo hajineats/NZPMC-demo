@@ -11,6 +11,7 @@ require("firebase/auth");
 require("firebase/database");
 
 export default function Login(props) {
+  const { initialized } = props;
   const { loggedIn } = props;
   const [name, setName] = useState("");
 
@@ -33,9 +34,9 @@ export default function Login(props) {
           </Paper>
           <Paper style={{ paddingTop: "20px", paddingBottom: "10px" }}>
             {!loggedIn ? (
-              <FirebaseUI setName={setName} name={name} />
+              <FirebaseUI />
             ) : (
-              <UserInit />
+              <UserInit initialized={initialized} />
             )}
           </Paper>
         </Container>

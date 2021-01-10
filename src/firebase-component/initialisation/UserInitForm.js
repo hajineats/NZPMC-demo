@@ -44,6 +44,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function UserInitForm(props) {
+  const { initialized } = props;
   const classes = useStyles();
   const [yearLevel, setYearLevel] = React.useState(9);
   const [name, setName] = useState("");
@@ -53,21 +54,6 @@ export default function UserInitForm(props) {
     event.preventDefault();
     setYearLevel(event.target.value);
   };
-
-  function checkUserInitialized() {
-    console.log("im here!");
-    firebase
-      .database()
-      .ref("/users/" + firebase.auth().currentUser.uid)
-      .once("value")
-      .then((snapshot) => {
-        if (snapshot.hasChild("initialized")) {
-          return true;
-        } else {
-          return false;
-        }
-      });
-  }
 
   function onButtonSubmit(e) {
     e.preventDefault();
@@ -90,7 +76,7 @@ export default function UserInitForm(props) {
       {redirect !== null && <Redirect to={redirect} />}
       <form className={classes.root} autoComplete="off">
         <div style={{ padding: "20px" }}>
-          {checkUserInitialized() ? (
+          {initialized ? (
             <>
               <TextField
                 onChange={(e) => {
@@ -100,7 +86,6 @@ export default function UserInitForm(props) {
                 label="Your preferred full name"
               />
               <TextField
-                required="true"
                 id="standard-select-currency"
                 select
                 label="Select"
