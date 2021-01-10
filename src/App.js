@@ -29,7 +29,16 @@ function App() {
             />
           </Route>
           <Route exact path="/main">
-            <NZPMC initialized={initialized} loggedIn={loggedIn} />
+            <NZPMC
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "100vh",
+              }}
+              initialized={initialized}
+              loggedIn={loggedIn}
+            />
           </Route>
           <Route exact path="/asdfjklasdfjkl">
             <Admin />

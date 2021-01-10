@@ -3,12 +3,12 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import Button from "@material-ui/core/Button";
 
-const options = [
-  { key: 1, optionString: "Anvily" },
-  { key: 2, optionString: "Jaemin" },
-  { key: 3, optionString: "Hajin" },
-  { key: 4, optionString: "Hello" },
-];
+const options = {
+  1: "Anvily",
+  2: "Jaemin",
+  3: "Hajin",
+  4: "Hello",
+};
 
 export default function QuestionUserInput() {
   const [choice, setChoice] = useState(-1);
@@ -22,21 +22,22 @@ export default function QuestionUserInput() {
     <>
       <List>
         <ListItem>Choose your answer:</ListItem>
-        {options.map((option) => {
+        {[1, 2, 3, 4].map((key) => {
           return (
             <ListItem
               button
               style={{
-                backgroundColor: choice === option.key ? "gray" : "white",
+                backgroundColor: choice === key ? "gray" : "white",
                 padding: "20px",
                 margin: "5px",
-                color: choice === option.key ? "white" : "black",
+                minWidth: "100%",
+                color: choice === key ? "white" : "black",
               }}
               onClick={() => {
-                onChoiceClicked(option.key);
+                onChoiceClicked(key);
               }}
             >
-              {option.optionString}
+              {options[key]}
             </ListItem>
           );
         })}
@@ -46,7 +47,6 @@ export default function QuestionUserInput() {
         style={{
           backgroundColor: "yellowgreen",
           padding: "15px",
-          margin: "5px",
           minWidth: "100px",
           maxWidth: "100%",
         }}

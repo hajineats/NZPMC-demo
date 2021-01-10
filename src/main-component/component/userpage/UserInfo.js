@@ -13,7 +13,7 @@ export default function UserInfo(props) {
     <>
       {loggedIn ? (
         <>
-          <UserDetailsAndInstructions />
+          {/* <UserDetailsAndInstructions /> */}
           <Button
             onClick={signOut}
             style={{

@@ -4,6 +4,7 @@ import NavBar from "./component/NavBar";
 import UserInfo from "./component/userpage/UserInfo";
 import QuestionList from "./component/questionlist/QuestionList";
 import { Redirect } from "react-router-dom";
+import Grid from "@material-ui/core/Grid";
 const pageStates = {
   QUESTIONSLIST: 0,
   CURRENTQUESTION: 1,
@@ -11,20 +12,26 @@ const pageStates = {
 };
 
 function NZPMC(props) {
-  const [pageState, setPageState] = useState(2);
   const { loggedIn } = props;
   return (
     <>
       {loggedIn ? (
-        <div className="App" style={{ textAlign: "center" }}>
-          <div style={{ backgroundColor: "#cfe8fc", height: "100vh" }}>
-            <NavBar onHandleChange={setPageState} />
-            {pageState === pageStates.CURRENTQUESTION && <QuestionPage />}
-            {pageState === pageStates.QUESTIONSLIST && <QuestionList />}
-            {pageState === pageStates.USERPAGE && (
-              <UserInfo loggedIn={loggedIn} />
-            )}
-          </div>
+        <div
+          style={{
+            backgroundColor: "#1ABC9C",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100vh",
+          }}
+        >
+          <Grid container item xs={12} spacing={3}>
+            <Grid item xs={12}>
+              <QuestionPage />
+            </Grid>
+          </Grid>
+          {/* 
+            <UserInfo loggedIn={loggedIn} /> */}
         </div>
       ) : (
         <Redirect to="/" />
