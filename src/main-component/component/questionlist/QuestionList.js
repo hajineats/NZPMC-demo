@@ -2,7 +2,6 @@ import React from "react";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
-import Divider from "@material-ui/core/Divider";
 import Box from "@material-ui/core/Box";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import Paper from "@material-ui/core/Paper";
@@ -16,7 +15,7 @@ const questions = [
   { checked: false, index: 6 },
   { checked: false, index: 7 },
   { checked: false, index: 8 },
-  { checked: false, index: 9 }
+  { checked: false, index: 9 },
 ];
 
 export default function QuestionList() {

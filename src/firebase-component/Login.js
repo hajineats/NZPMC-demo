@@ -1,92 +1,18 @@
-import React, { useEffect, useState } from "react";
-import firebase from "./Firebase";
+import React, { useState } from "react";
 import Paper from "@material-ui/core/Paper";
-import MathJax from "react-mathjax-preview";
 import Container from "@material-ui/core/Container";
 import logo from "../assets/nzpmc-logo.png";
+import UserInit from "./initialisation/UserInit";
 import "./Login.css";
 import "firebaseui/dist/firebaseui.css";
-var firebaseui = require("firebaseui");
+import FirebaseUI from "./FirebaseUI";
+import firebase from "./Firebase";
 require("firebase/auth");
 require("firebase/database");
 
-//////////////////////////////////////////////////////////////////////
-// config files
-
-var uiConfig = {
-  callbacks: {
-    signInSuccessWithAuthResult: function (authResult, redirectUrl) {
-      return true;
-    },
-    uiShown: function () {
-      // document.getElementById('loader').style.display = 'none';
-    },
-  },
-  signInFlow: "popup",
-  signInSuccessUrl: "/",
-  signInOptions: [
-    firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-    firebase.auth.EmailAuthProvider.PROVIDER_ID,
-  ],
-  tosUrl: "https://www.google.com",
-  privacyPolicyUrl: "https://www.google.com",
-};
-
-//////////////////////////////////////////////////////////////////
 export default function Login(props) {
-  const [email, setEmail] = useState("");
+  const { loggedIn } = props;
   const [name, setName] = useState("");
-  const [math, setMath] = useState(String.raw``);
-
-  function writeUserData() {
-    firebase
-      .database()
-      .ref("users/" + firebase.auth().currentUser.uid)
-      .set({
-        username: name,
-        email_address: email,
-        latex: String.raw`
-        Question 3: Evaluate the following integral.
-        \begin{align*}
-        \int x + \frac{x^2}{2} dx
-        \end{align*}
-        
-        `,
-      });
-  }
-
-  function readUserData() {
-    firebase
-      .database()
-      .ref("users/" + firebase.auth().currentUser.uid)
-      .once("value")
-      .then((snapshot) => {
-        // var username = (snapshot.val() && snapshot.val().username) || 'Anonymous';
-        setMath(String.raw`${snapshot.val().latex}`);
-      });
-  }
-
-  useEffect(() => {
-    var ui =
-      firebaseui.auth.AuthUI.getInstance() ||
-      new firebaseui.auth.AuthUI(firebase.auth());
-    ui.start("#firebaseui-auth-container", uiConfig);
-
-    firebase.auth().onAuthStateChanged((user) => {
-      setEmail(user ? user.email : "");
-      setName(user ? user.displayName : "");
-      props.setLoggedIn(user ? true : false);
-      if (user) {
-        firebase
-          .database()
-          .ref("users/" + firebase.auth().currentUser.uid + "/initialized")
-          .once("value")
-          .then((snapshot) => {
-            props.setUserInitialised(snapshot.val());
-          });
-      }
-    });
-  }, []);
 
   return (
     <>
@@ -98,18 +24,20 @@ export default function Login(props) {
           <Paper
             style={{ textAlign: "center", margin: "10px", padding: "10px" }}
           >
-            <img width="64px" height="64px" src={logo} />
+            <img width="64px" height="64px" src={logo} alt="logo" />
             <br />
 
-            {props.loggedIn
+            {loggedIn
               ? "Hello! You are logged in as " + name + "!"
               : "You are not logged in, sorry!"}
           </Paper>
-
-          <Paper
-            style={{ paddingTop: "20px", paddingBottom: "10px" }}
-            id="firebaseui-auth-container"
-          />
+          <Paper style={{ paddingTop: "20px", paddingBottom: "10px" }}>
+            {!loggedIn ? (
+              <FirebaseUI setName={setName} name={name} />
+            ) : (
+              <UserInit />
+            )}
+          </Paper>
         </Container>
         {/* <button onClick={writeUserData}>write!</button>
         <button onClick={readUserData}>read!</button>

@@ -1,29 +1,29 @@
 import Login from "./firebase-component/Login";
+import firebase from "./firebase-component/Firebase";
+import { useState, useEffect } from "react";
 import NZPMC from "./main-component/NZPMC";
-import { useState } from "react";
-
+import "./App.css";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 function App() {
-  const [userInitialised, setUserInitialised] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
-  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged((user) => {
+      setLoggedIn(user ? true : false);
+    });
+  });
+
   return (
     <>
-      {loading ? (
-        <div>loading</div>
-      ) : !loggedIn ? (
-        <Login
-          loggedIn={loggedIn}
-          setLoggedIn={setLoggedIn}
-          setUserInitialised={setUserInitialised}
-          setLoading={setLoading}
-        />
-      ) : (
-        <NZPMC
-          userInitialised={userInitialised}
-          setUserInitialised={setUserInitialised}
-          setLoading={setLoading}
-        />
-      )}
+      <Router>
+        <Switch>
+          <Route exact path="/">
+            <Login loggedIn={loggedIn} />
+          </Route>
+          <Route exact path="/main">
+            <NZPMC loggedIn={loggedIn} />
+          </Route>
+        </Switch>
+      </Router>
     </>
   );
 }
