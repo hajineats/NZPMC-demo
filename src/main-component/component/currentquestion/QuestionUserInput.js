@@ -3,14 +3,14 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import Button from "@material-ui/core/Button";
 
-const options = {
-  1: "Anvily",
-  2: "Jaemin",
-  3: "Hajin",
-  4: "Hello",
-};
+// const options = {
+//   1: "Anvily",
+//   2: "Jaemin",
+//   3: "Hajin",
+//   4: "Hello",
+// };
 
-export default function QuestionUserInput() {
+export default function QuestionUserInput(props) {
   const [choice, setChoice] = useState(-1);
   const onActionSave = () => {
     //save choice variable
@@ -22,7 +22,7 @@ export default function QuestionUserInput() {
     <>
       <List>
         <ListItem>Choose your answer:</ListItem>
-        {[1, 2, 3, 4].map((key) => {
+        {[1, 2, 3, 4, 5].map((key) => {
           return (
             <ListItem
               button
@@ -37,7 +37,7 @@ export default function QuestionUserInput() {
                 onChoiceClicked(key);
               }}
             >
-              {options[key]}
+              {props.q.options[key]}
             </ListItem>
           );
         })}

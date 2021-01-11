@@ -35,7 +35,7 @@ export default function QuestionPage() {
           <Question q={q} />
         </Grid>
         <Grid item xs={3}>
-          <QuestionUserInput />
+          <QuestionUserInput q={q} />
         </Grid>
       </Grid>
     </>
