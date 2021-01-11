@@ -30,14 +30,14 @@ export default function QuestionUserInput(props) {
                 backgroundColor: choice === key ? "gray" : "white",
                 padding: "20px",
                 margin: "5px",
-                minWidth: "100%",
-                color: choice === key ? "white" : "black",
               }}
               onClick={() => {
                 onChoiceClicked(key);
               }}
             >
-              {props.q.options[key]}
+              {props.q === null || props.q === undefined
+                ? "***"
+                : props.q.options[key]}
             </ListItem>
           );
         })}
