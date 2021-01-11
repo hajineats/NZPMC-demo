@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import Button from "@material-ui/core/Button";
-
+import Grid from "@material-ui/core/Grid";
 // const options = {
 //   1: "Anvily",
 //   2: "Jaemin",
@@ -30,6 +30,7 @@ export default function QuestionUserInput(props) {
                 backgroundColor: choice === key ? "gray" : "white",
                 padding: "20px",
                 margin: "5px",
+                color: choice === key ? "white" : "black",
               }}
               onClick={() => {
                 onChoiceClicked(key);
@@ -41,19 +42,27 @@ export default function QuestionUserInput(props) {
             </ListItem>
           );
         })}
+        <ListItem
+          style={{
+            display: "flex",
+            alignItem: "center",
+            justifyContent: "center",
+          }}
+        >
+          <Button
+            style={{
+              backgroundColor: "#008f68",
+              color: "white",
+              padding: "15px",
+              minWidth: "100px",
+              maxWidth: "100%",
+            }}
+            onAction={onActionSave}
+          >
+            Save Choice
+          </Button>
+        </ListItem>
       </List>
-
-      <Button
-        style={{
-          backgroundColor: "yellowgreen",
-          padding: "15px",
-          minWidth: "100px",
-          maxWidth: "100%",
-        }}
-        onAction={onActionSave}
-      >
-        Save Choice
-      </Button>
     </>
   );
 }
