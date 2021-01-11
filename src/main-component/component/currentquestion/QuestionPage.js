@@ -8,6 +8,7 @@ import Button from "@material-ui/core/Button";
 import { Typography } from "@material-ui/core";
 export default function QuestionPage() {
   const [navClosed, setNavClosed] = useState(true);
+  const [q, setQ] = useState(null);
   return (
     <>
       <div
@@ -23,7 +24,7 @@ export default function QuestionPage() {
           transition: "0.5s",
         }}
       >
-        <QuestionList setNavClosed={setNavClosed} />
+        <QuestionList setQ={setQ} setNavClosed={setNavClosed} />
       </div>
       <Grid container item xs={12} spacing={3}>
         <Grid item xs={9}>
@@ -31,7 +32,7 @@ export default function QuestionPage() {
             <MenuIcon fontSize="large" />
             <Typography>See remaining Questions/submit</Typography>
           </Button>
-          <Question />
+          <Question q={q} />
         </Grid>
         <Grid item xs={3}>
           <QuestionUserInput />

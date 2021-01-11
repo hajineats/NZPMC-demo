@@ -8,8 +8,8 @@ import Paper from "@material-ui/core/Paper";
 import CloseIcon from "@material-ui/icons/CloseRounded";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
-import UserInfo from "../userpage/UserInfo";
 import firebase from "../../../firebase-component/Firebase";
+import getQuestion from "../../../firebase-component/FirebaseRequests";
 const questions = [
   { checked: true, index: 1 },
   { checked: true, index: 2 },
@@ -55,7 +55,17 @@ export default function QuestionList(props) {
         <List>
           {questions.map((question) => {
             return (
-              <ListItem button style={{ height: 60, backgroundColor: "white" }}>
+              <ListItem
+                onClick={() =>
+                  getQuestion(question.index).then((res) => {
+                    props.setQ(res);
+                    console.log(res);
+                    setNavClosed(true);
+                  })
+                }
+                button
+                style={{ height: 60, backgroundColor: "white" }}
+              >
                 <ListItemIcon>
                   {question.checked ? <CheckCircleIcon /> : <></>}
                 </ListItemIcon>

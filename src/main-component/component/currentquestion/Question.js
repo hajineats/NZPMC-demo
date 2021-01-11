@@ -10,7 +10,7 @@ Question 3: Evaluate the following integral.
 
 `;
 
-export default function Question() {
+export default function Question(props) {
   return (
     <div style={{ margin: "0 0 0 10px" }}>
       <Paper
@@ -22,7 +22,13 @@ export default function Question() {
         }}
       >
         <br />
-        <MathJax math={math} />
+        <MathJax
+          math={
+            props.q === undefined || props.q === null
+              ? "Select a question"
+              : props.q.latex
+          }
+        />
       </Paper>
 
       <Paper style={{ backgroundColor: "white", maxHeight: "100%" }}>
