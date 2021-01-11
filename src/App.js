@@ -31,7 +31,7 @@ function App() {
           <Route exact path="/main">
             <NZPMC initialized={initialized} loggedIn={loggedIn} />
           </Route>
-          <Route exact path="/asdfjklasdfjkl">
+          <Route exact path="/awefjioawefjio">
             <Admin />
           </Route>
         </Switch>
