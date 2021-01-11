@@ -13,7 +13,6 @@ require("firebase/database");
 export default function Login(props) {
   const { initialized, setInitialized } = props;
   const { loggedIn } = props;
-  const [name, setName] = useState("");
 
   return (
     <>
@@ -27,10 +26,7 @@ export default function Login(props) {
           >
             <img width="64px" height="64px" src={logo} alt="logo" />
             <br />
-
-            {loggedIn
-              ? "Hello! You are logged in as " + name + "!"
-              : "You are not logged in, sorry!"}
+            {loggedIn ? "Welcome" : "You are not logged in, sorry!"}
           </Paper>
           <Paper style={{ paddingTop: "20px", paddingBottom: "10px" }}>
             {!loggedIn ? (
@@ -40,9 +36,6 @@ export default function Login(props) {
             )}
           </Paper>
         </Container>
-        {/* <button onClick={writeUserData}>write!</button>
-        <button onClick={readUserData}>read!</button>
-        <MathJax math={math} /> */}
       </Container>
       <div></div>
     </>
