@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import Button from "@material-ui/core/Button";
+import { submitChoice } from "../../../firebase-component/FirebaseRequests";
 import Grid from "@material-ui/core/Grid";
 // const options = {
 //   1: "Anvily",
@@ -13,7 +14,18 @@ import Grid from "@material-ui/core/Grid";
 export default function QuestionUserInput(props) {
   const [choice, setChoice] = useState(-1);
   const onActionSave = () => {
-    //save choice variable
+    let qIndex = props.qIndex;
+    console.log("hello!");
+    console.log(qIndex);
+    if (qIndex) {
+      submitChoice(qIndex, choice)
+        .then(() => console.log("hello my friend"))
+        .catch((err) => console.log(err));
+    } else {
+      console.log("nothing had been selected, so nothing saved!");
+    }
+    console.log("hi again!");
+    // get question number
   };
   const onChoiceClicked = (choice) => {
     setChoice(choice);
@@ -57,7 +69,7 @@ export default function QuestionUserInput(props) {
               minWidth: "100px",
               maxWidth: "100%",
             }}
-            onAction={onActionSave}
+            onClick={onActionSave}
           >
             Save Choice
           </Button>

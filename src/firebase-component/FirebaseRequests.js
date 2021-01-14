@@ -1,4 +1,5 @@
 import firebase from "./Firebase";
+require("firebase/app");
 require("firebase/database");
 
 const getQuestion = async (num) => {
@@ -15,4 +16,12 @@ const getQuestion = async (num) => {
   return json;
 };
 
+const submitChoice = async (qIndex, choice) => {
+  await firebase
+    .database()
+    .ref("/users/" + firebase.auth().currentUser.uid + "/options/" + qIndex)
+    .set(choice);
+};
+
 export default getQuestion;
+export { submitChoice };

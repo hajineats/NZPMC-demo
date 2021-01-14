@@ -9,6 +9,7 @@ import { Typography } from "@material-ui/core";
 export default function QuestionPage() {
   const [navClosed, setNavClosed] = useState(true);
   const [q, setQ] = useState(null);
+  const [qIndex, setQIndex] = useState(null);
   return (
     <>
       <div
@@ -24,7 +25,11 @@ export default function QuestionPage() {
           transition: "0.5s",
         }}
       >
-        <QuestionList setQ={setQ} setNavClosed={setNavClosed} />
+        <QuestionList
+          setQIndex={setQIndex}
+          setQ={setQ}
+          setNavClosed={setNavClosed}
+        />
       </div>
       <Grid container item xs={12} spacing={3}>
         <Grid item xs={9}>
@@ -35,7 +40,7 @@ export default function QuestionPage() {
           <Question q={q} />
         </Grid>
         <Grid item xs={3}>
-          <QuestionUserInput q={q} />
+          <QuestionUserInput qIndex={qIndex} q={q} />
         </Grid>
       </Grid>
     </>

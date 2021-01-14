@@ -11,11 +11,11 @@ import Button from "@material-ui/core/Button";
 import firebase from "../../../firebase-component/Firebase";
 import getQuestion from "../../../firebase-component/FirebaseRequests";
 const questions = [
-  { checked: true, index: 1 },
-  { checked: true, index: 2 },
-  { checked: true, index: 3 },
+  { checked: false, index: 1 },
+  { checked: false, index: 2 },
+  { checked: false, index: 3 },
   { checked: false, index: 4 },
-  { checked: true, index: 5 },
+  { checked: false, index: 5 },
   { checked: false, index: 6 },
   { checked: false, index: 7 },
   { checked: false, index: 8 },
@@ -56,13 +56,18 @@ export default function QuestionList(props) {
           {questions.map((question) => {
             return (
               <ListItem
-                onClick={() =>
+                onClick={() => {
                   getQuestion(question.index).then((res) => {
                     props.setQ(res);
-                    console.log(res);
+                    // console.log(res);
                     setNavClosed(true);
-                  })
-                }
+                  });
+                  props.setQIndex(question.index);
+                  console.log(
+                    "this part has to be modified because questions array is hard coded"
+                  );
+                  // console.log(question.index);
+                }}
                 button
                 style={{ height: 60, backgroundColor: "white" }}
               >
