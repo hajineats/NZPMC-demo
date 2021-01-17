@@ -12,9 +12,9 @@ import Grid from "@material-ui/core/Grid";
 // };
 
 export default function QuestionUserInput(props) {
+  const { questions, setQuestions, qIndex } = props;
   const [choice, setChoice] = useState(-1);
   const onActionSave = () => {
-    let qIndex = props.qIndex;
     console.log("hello!");
     console.log(qIndex);
     if (qIndex) {
@@ -25,6 +25,10 @@ export default function QuestionUserInput(props) {
       console.log("nothing had been selected, so nothing saved!");
     }
     console.log("hi again!");
+    let prevQuestions = [...questions];
+    prevQuestions[qIndex - 1].checked = true;
+    prevQuestions[qIndex - 1].prevChoice = choice;
+    setQuestions(prevQuestions);
     // get question number
   };
   const onChoiceClicked = (choice) => {
@@ -54,6 +58,7 @@ export default function QuestionUserInput(props) {
             </ListItem>
           );
         })}
+
         <ListItem
           style={{
             display: "flex",
@@ -71,8 +76,21 @@ export default function QuestionUserInput(props) {
             }}
             onClick={onActionSave}
           >
-            Save Choice
+            Save Choice <br />{" "}
           </Button>
+        </ListItem>
+        <ListItem
+          style={{
+            display: "flex",
+            alignItem: "center",
+            justifyContent: "center",
+          }}
+        >
+          <div>
+            {questions[qIndex - 1].prevChoice === -1
+              ? ""
+              : "Current choice: " + questions[qIndex - 1].prevChoice}
+          </div>
         </ListItem>
       </List>
     </>

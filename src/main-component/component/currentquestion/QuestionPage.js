@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
 import Question from "./Question";
 import QuestionUserInput from "./QuestionUserInput";
@@ -6,10 +6,25 @@ import QuestionList from "../questionlist/QuestionList";
 import MenuIcon from "@material-ui/icons/Menu";
 import Button from "@material-ui/core/Button";
 import { Typography } from "@material-ui/core";
+
+const questionsInit = [
+  { checked: false, index: 1, prevChoice: -1 },
+  { checked: false, index: 2, prevChoice: -1 },
+  { checked: false, index: 3, prevChoice: -1 },
+  { checked: false, index: 4, prevChoice: -1 },
+  { checked: false, index: 5, prevChoice: -1 },
+  { checked: false, index: 6, prevChoice: -1 },
+  { checked: false, index: 7, prevChoice: -1 },
+  { checked: false, index: 8, prevChoice: -1 },
+  { checked: false, index: 9, prevChoice: -1 },
+];
+
 export default function QuestionPage() {
   const [navClosed, setNavClosed] = useState(true);
   const [q, setQ] = useState(null);
   const [qIndex, setQIndex] = useState(null);
+  const [questions, setQuestions] = useState(questionsInit);
+
   return (
     <>
       <div
@@ -29,6 +44,7 @@ export default function QuestionPage() {
           setQIndex={setQIndex}
           setQ={setQ}
           setNavClosed={setNavClosed}
+          questions={questions}
         />
       </div>
       <Grid container item xs={12} spacing={3}>
@@ -40,7 +56,12 @@ export default function QuestionPage() {
           <Question q={q} />
         </Grid>
         <Grid item xs={3}>
-          <QuestionUserInput qIndex={qIndex} q={q} />
+          <QuestionUserInput
+            qIndex={qIndex}
+            q={q}
+            questions={questions}
+            setQuestions={setQuestions}
+          />
         </Grid>
       </Grid>
     </>

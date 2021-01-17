@@ -10,20 +10,9 @@ import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import firebase from "../../../firebase-component/Firebase";
 import getQuestion from "../../../firebase-component/FirebaseRequests";
-const questions = [
-  { checked: false, index: 1 },
-  { checked: false, index: 2 },
-  { checked: false, index: 3 },
-  { checked: false, index: 4 },
-  { checked: false, index: 5 },
-  { checked: false, index: 6 },
-  { checked: false, index: 7 },
-  { checked: false, index: 8 },
-  { checked: false, index: 9 },
-];
 
 export default function QuestionList(props) {
-  const { setNavClosed } = props;
+  const { setNavClosed, questions } = props;
   function signOut() {
     firebase.auth().signOut();
   }
