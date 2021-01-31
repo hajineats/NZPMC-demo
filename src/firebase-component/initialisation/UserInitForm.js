@@ -5,6 +5,7 @@ import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
 import { Button } from "@material-ui/core";
 import firebase from "../Firebase";
+import { checkInitialized } from "../FirebaseRequests";
 require("firebase/auth");
 require("firebase/database");
 const yearLevelList = [
@@ -47,7 +48,8 @@ export default function UserInitForm(props) {
   const { initialized, setInitialized } = props;
   const classes = useStyles();
   const [yearLevel, setYearLevel] = React.useState(9);
-  const [name, setName] = useState("");
+  const [school, setSchool] = useState(null);
+  const [name, setName] = useState(null);
   const [redirect, setRedirect] = React.useState(null);
 
   const handleChange = (event) => {
@@ -57,17 +59,35 @@ export default function UserInitForm(props) {
 
   function onButtonSubmit(e) {
     e.preventDefault();
+    if (!(name != null && school != null && yearLevel != null)) {
+      alert("Please fill out all the fields!");
+      return;
+    }
+
     // update database set
     firebase
       .database()
       .ref("users/" + firebase.auth().currentUser.uid)
-      .set({
+      .update({
         name: name,
         year: yearLevel,
+        school: school,
         isSenior: yearLevel >= 11 ? true : false,
         isAdmin: false,
-        initialized: true,
       });
+
+    checkInitialized().then((prevLoggedIn) => {
+      //if it's first time logging in, then add timestamp
+      if (!prevLoggedIn) {
+        firebase
+          .database()
+          .ref("users/" + firebase.auth().currentUser.uid)
+          .update({
+            startedAt: new Date().getTime(),
+          });
+      }
+    });
+
     setRedirect("/main");
   }
 
@@ -84,6 +104,13 @@ export default function UserInitForm(props) {
                   setName(e.target.value);
                 }}
                 label="Your preferred full name"
+              />
+              <TextField
+                onChange={(e) => {
+                  e.preventDefault();
+                  setSchool(e.target.value);
+                }}
+                label="School name"
               />
               <TextField
                 id="standard-select-currency"

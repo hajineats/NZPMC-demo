@@ -9,7 +9,7 @@ require("firebase/auth");
 require("firebase/database");
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
-  const [initialized, setInitialized] = useState(false);
+  const [initialized, setInitialized] = useState(true);
 
   useEffect(() => {
     firebase

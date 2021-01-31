@@ -16,6 +16,22 @@ const getQuestion = async (num) => {
   return json;
 };
 
+const checkInitialized = async (num) => {
+  var initialized = true;
+  await firebase
+    .database()
+    .ref("/users/" + firebase.auth().currentUser.uid + "/startedAt")
+    .once("value")
+    .then((snapshot) => {
+      console.log("initialized is ");
+      console.log(snapshot.val());
+      if (!snapshot.val()) {
+        initialized = false;
+      }
+    });
+  return initialized;
+};
+
 const submitChoice = async (qIndex, choice) => {
   await firebase
     .database()
@@ -24,4 +40,4 @@ const submitChoice = async (qIndex, choice) => {
 };
 
 export default getQuestion;
-export { submitChoice };
+export { submitChoice, checkInitialized };
