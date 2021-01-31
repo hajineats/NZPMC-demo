@@ -7,23 +7,21 @@ import MenuIcon from "@material-ui/icons/Menu";
 import Button from "@material-ui/core/Button";
 import { Typography } from "@material-ui/core";
 
-const questionsInit = [
-  { checked: false, index: 1, prevChoice: -1 },
-  { checked: false, index: 2, prevChoice: -1 },
-  { checked: false, index: 3, prevChoice: -1 },
-  { checked: false, index: 4, prevChoice: -1 },
-  { checked: false, index: 5, prevChoice: -1 },
-  { checked: false, index: 6, prevChoice: -1 },
-  { checked: false, index: 7, prevChoice: -1 },
-  { checked: false, index: 8, prevChoice: -1 },
-  { checked: false, index: 9, prevChoice: -1 },
-];
-
 export default function QuestionPage() {
   const [navClosed, setNavClosed] = useState(true);
   const [q, setQ] = useState(null);
-  const [qIndex, setQIndex] = useState(null);
-  const [questions, setQuestions] = useState(questionsInit);
+  const [qIndex, setQIndex] = useState(-1);
+  const [questions, setQuestions] = useState([
+    { checked: false, index: 1, prevChoice: -1 },
+    { checked: false, index: 2, prevChoice: -1 },
+    { checked: false, index: 3, prevChoice: -1 },
+    { checked: false, index: 4, prevChoice: -1 },
+    { checked: false, index: 5, prevChoice: -1 },
+    { checked: false, index: 6, prevChoice: -1 },
+    { checked: false, index: 7, prevChoice: -1 },
+    { checked: false, index: 8, prevChoice: -1 },
+    { checked: false, index: 9, prevChoice: -1 },
+  ]);
 
   return (
     <>

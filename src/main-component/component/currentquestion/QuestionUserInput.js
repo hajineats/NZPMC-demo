@@ -87,9 +87,11 @@ export default function QuestionUserInput(props) {
           }}
         >
           <div>
-            {questions[qIndex - 1].prevChoice === -1
-              ? ""
-              : "Current choice: " + questions[qIndex - 1].prevChoice}
+            {qIndex != -1
+              ? questions[qIndex - 1].prevChoice === -1
+                ? ""
+                : "Current choice: " + questions[qIndex - 1].prevChoice
+              : ""}
           </div>
         </ListItem>
       </List>
