@@ -16,7 +16,7 @@ export default function Login(props) {
 
   return (
     <>
-      <Container
+      <div
         style={{ display: "flex", alignItems: "center" }}
         className="wrapper"
       >
@@ -36,7 +36,7 @@ export default function Login(props) {
             )}
           </Paper>
         </Container>
-      </Container>
+      </div>
       <div></div>
     </>
   );
