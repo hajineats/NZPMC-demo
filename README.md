@@ -1,3 +1,12 @@
+This is a platform for The New Zealand Physics and Mathematics Competition.
+A demo version of the application can be found on http://auth-development-b60bd.web.app
+
+![](landingpage)
+![](signup)
+![](question)
+![](questionslist)
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
